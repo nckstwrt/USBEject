@@ -1,5 +1,5 @@
 # USBEject
- Eject USB Drives (Forcing closing any open handles as required)
+ Eject USB Drives (Force closing any open handles as required by the user)
 
 ## The Problem
 ![](https://i.imgur.com/EgA4kyj.png)
