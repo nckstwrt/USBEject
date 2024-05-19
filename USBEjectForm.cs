@@ -81,17 +81,31 @@ namespace USBEject
 
             var drives = DriveInfo.GetDrives().ToList();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE InterfaceType='USB'");
-
+            //ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE InterfaceType='USB'");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+            /*var y = searcher.Get().Cast<ManagementObject>().ToList();
+            foreach (var y2 in y)
+            {
+                foreach (var prop in y2.Properties)
+                {
+                    Console.WriteLine(prop.Name.ToString() + " " + ((prop.Value != null) ? prop.Value.ToString() : ""));
+                }
+                string y3 = y2["InterfaceType"].ToString();
+                Console.WriteLine(y3);
+            }*/
+            // MediaType External hard disk media
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                foreach (ManagementObject b in queryObj.GetRelated("Win32_DiskPartition"))
+                if ((queryObj["InterfaceType"] != null && queryObj["InterfaceType"].ToString() == "USB") || (queryObj["MediaType"] != null && queryObj["MediaType"].ToString().Contains("External")))
                 {
-                    foreach (ManagementBaseObject c in b.GetRelated("Win32_LogicalDisk"))
+                    foreach (ManagementObject b in queryObj.GetRelated("Win32_DiskPartition"))
                     {
-                        var driveInfo = drives.FirstOrDefault(x => x.Name == c["Name"].ToString() + "\\");
-                        if (driveInfo != null)
-                            comboBoxDrive.Items.Add(new DriveItem() { driveInfo = driveInfo });
+                        foreach (ManagementBaseObject c in b.GetRelated("Win32_LogicalDisk"))
+                        {
+                            var driveInfo = drives.FirstOrDefault(x => x.Name == c["Name"].ToString() + "\\");
+                            if (driveInfo != null)
+                                comboBoxDrive.Items.Add(new DriveItem() { driveInfo = driveInfo });
+                        }
                     }
                 }
             }
