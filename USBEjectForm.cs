@@ -227,7 +227,11 @@ namespace USBEject
 
         public override string ToString()
         {
-            return driveInfo.Name + "  (" + driveInfo.VolumeLabel + ")";
+
+            string volumeLabel = "";
+            try { volumeLabel = "  (" + driveInfo.VolumeLabel + ")"; }
+            catch { }
+            return driveInfo.Name + volumeLabel;
         }
     }
 }
