@@ -186,7 +186,7 @@ namespace USBEject
                             }
                             else
                             {
-                                MessageBox.Show("Could not eject disk and could not find issue while assessing Services!", "USB Eject", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Could not eject disk and could not find files assessing it!\r\n\r\nCould be drive needs checking?", "USB Eject", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
                             }
                         }
@@ -196,8 +196,15 @@ namespace USBEject
                             var result = MessageBox.Show(string.Format("Failed to eject due to Process: {0} (PID: {1})\r\n\r\nKill Process and continue?", AppName, ProcessID), "USB Eject", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (result == DialogResult.Yes)
                             {
-                                var process = Process.GetProcessById(int.Parse(ProcessID));
-                                process.Kill();
+                                try
+                                {
+                                    var process = Process.GetProcessById(int.Parse(ProcessID));
+                                    process.Kill();
+                                }
+                                catch 
+                                {
+                                    MessageBox.Show("Was unable to kill process: " + ProcessID);
+                                }
                             }
                             else
                                 break;
@@ -217,6 +224,15 @@ namespace USBEject
                 }
 
                 RefreshDrives();
+            }
+        }
+
+        private void buttonCheckDisk_Click(object sender, EventArgs e)
+        {
+            if (comboBoxDrive.SelectedIndex != -1)
+            {
+                var driveItem = comboBoxDrive.SelectedItem as DriveItem;
+                Process.Start($"{Path.Combine(Environment.SystemDirectory, "chkdsk.exe")}", $"/F {driveItem.driveInfo.Name.Replace("\\", "")}");
             }
         }
     }

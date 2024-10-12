@@ -32,6 +32,7 @@ namespace USBEject
             this.comboBoxDrive = new System.Windows.Forms.ComboBox();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonEject = new System.Windows.Forms.Button();
+            this.buttonCheckDisk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxDrive
@@ -45,7 +46,7 @@ namespace USBEject
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 39);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 41);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 1;
@@ -55,19 +56,30 @@ namespace USBEject
             // 
             // buttonEject
             // 
-            this.buttonEject.Location = new System.Drawing.Point(153, 39);
+            this.buttonEject.Location = new System.Drawing.Point(237, 12);
             this.buttonEject.Name = "buttonEject";
-            this.buttonEject.Size = new System.Drawing.Size(75, 23);
+            this.buttonEject.Size = new System.Drawing.Size(75, 52);
             this.buttonEject.TabIndex = 2;
             this.buttonEject.Text = "Eject";
             this.buttonEject.UseVisualStyleBackColor = true;
             this.buttonEject.Click += new System.EventHandler(this.buttonEject_Click);
             // 
+            // buttonCheckDisk
+            // 
+            this.buttonCheckDisk.Location = new System.Drawing.Point(153, 41);
+            this.buttonCheckDisk.Name = "buttonCheckDisk";
+            this.buttonCheckDisk.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckDisk.TabIndex = 3;
+            this.buttonCheckDisk.Text = "Check Disk";
+            this.buttonCheckDisk.UseVisualStyleBackColor = true;
+            this.buttonCheckDisk.Click += new System.EventHandler(this.buttonCheckDisk_Click);
+            // 
             // USBEjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 75);
+            this.ClientSize = new System.Drawing.Size(324, 75);
+            this.Controls.Add(this.buttonCheckDisk);
             this.Controls.Add(this.buttonEject);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.comboBoxDrive);
@@ -82,6 +94,7 @@ namespace USBEject
         private System.Windows.Forms.ComboBox comboBoxDrive;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonEject;
+        private System.Windows.Forms.Button buttonCheckDisk;
     }
 }
 
